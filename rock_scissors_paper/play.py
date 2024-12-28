@@ -32,15 +32,29 @@ class Result(Enum):
     DRAW = auto()
 
 
+class Hand(Enum):
+    """Hand Enums."""
+    ROCK = 'Rock'
+    SCISSORS = 'Scissors'
+    PAPER = 'Paper'
+    NONE = ''
+
+    def __str__(self):
+        """Printable value."""
+        return self.value
+
+
 @dataclass(frozen=True)
 class Config:
     """Game configuration."""
     quit_key: str = 'Q'
-    hand_names: tuple[str, ...] = ("Rock", "Scissors", "Paper")
+    hand_names: tuple[Hand, ...] = (Hand.ROCK, Hand.SCISSORS, Hand.PAPER)
     choice_map: MappingProxyType = MappingProxyType(
-        {'1': 'Rock', '2': 'Scissors', '3': 'Paper'})
+        {'1': Hand.ROCK, '2': Hand.SCISSORS, '3': Hand.PAPER})
     beats_map: MappingProxyType = MappingProxyType(
-        {'Rock': 'Scissors', 'Scissors': 'Paper', 'Paper': 'Rock'})
+        {Hand.ROCK: Hand.SCISSORS,
+         Hand.SCISSORS: Hand.PAPER,
+         Hand.PAPER: Hand.ROCK})
 
 
 @dataclass
@@ -49,16 +63,16 @@ class GameState:
 
     Attributes:
         player_name (str): The player's name.
-        player_hand (str): The player's current hand choice.
-        computer_hand (str): The computer's current hand choice.
+        player_hand (Hand): The player's current hand choice.
+        computer_hand (Hand): The computer's current hand choice.
         player_score: (int): The player's current score.
         computer_score: (int): The computer's current score.
         result (Enum): Result of the most recent round.
     """
 
     player_name: str = ''
-    player_hand: str = ''
-    computer_hand: str = ''
+    player_hand: Hand = Hand.NONE
+    computer_hand: Hand = Hand.NONE
     player_score: int = 0
     computer_score: int = 0
     result: Result = Result.DRAW
@@ -73,7 +87,7 @@ class UI:
         self._player_name = game_state.player_name
         self._config = config
 
-    def get_player_choice(self) -> str:
+    def get_player_choice(self) -> Hand:
         """Return player's selected choice."""
         while True:
             user_input = input("1: Rock, 2: Scissors, 3: Paper: ")
@@ -91,8 +105,8 @@ class UI:
         player_hand = self._game_state.player_hand
         computer_hand = self._game_state.computer_hand
 
-        summary = (f"{self._player_name} played {self._game_state.player_hand} | "
-                   f"Computer played {self._game_state.computer_hand}")
+        summary = (f"{self._player_name} played {player_hand} | "
+                   f"Computer played {computer_hand}")
 
         result_message = {
             Result.DRAW: f"You both chose {player_hand}. Draw",
@@ -164,7 +178,7 @@ class Game:
 
         self._game_state.result = result
 
-    def play_round(self, player_hand: str) -> None:
+    def play_round(self, player_hand: Hand) -> None:
         """Handle player wins hand.
 
         Args:
