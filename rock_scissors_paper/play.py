@@ -109,16 +109,21 @@ class UI:
 
     def display_end_screen(self) -> None:
         """Display final score and farewell message."""
+        player_score = self._game_state.player_score
+        computer_score = self._game_state.computer_score
+
+        if player_score == computer_score:
+            result_message = "The game was a DRAW!"
+        elif player_score > computer_score:
+            result_message = f"{self._player_name} WON!"
+        else:
+            result_message = f"{self._player_name} LOST!"
+
         clear_screen()
         print("The final score is:")
         self.print_scores()
-        if self._game_state.player_score == self._game_state.computer_score:
-            print("The game was a DRAW!")
-        elif self._game_state.player_score > self._game_state.computer_score:
-            print(f"{self._player_name} WON!")
-        else:
-            print(f"{self._player_name} LOST!")
-        print("Bye")
+        print(result_message)
+        print("Bye.")
 
     def prompt_to_continue(self) -> bool:
         """Return True if users chooses to quit game."""
