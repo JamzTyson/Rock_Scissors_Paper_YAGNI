@@ -45,16 +45,35 @@ will be displayed, and the game will ask if you'd like to play again.
 
 ```bash
 Welcome to Rock, Scissors, Paper!
-Choose your move:
-1. Rock
-2. Scissors
-3. Paper
-Enter your choice (1, 2, or 3): 1
-You chose: Rock
-Computer chose: Scissors
-You win!
 
-Would you like to play again? (y/n): y
+How to Play:
+
+To make your choice, type:
+    - 1 for Rock
+    - 2 for Scissors
+    - 3 for Paper
+
+Rules:
+    - Rock beats Scissors
+    - Scissors beats Paper
+    - Paper beats Rock
+    - If both players choose the same option, it's a draw.
+
+Enter your name: james
+Press Enter to play or Q to quit:
+```
+
+```bash
+James: 0 | Computer: 0
+1: Rock, 2: Scissors, 3: Paper: 2
+```
+
+```bash
+James played Scissors | Computer played Paper
+Scissors beats Paper. You Win
+James: 1 | Computer: 0
+
+Press Enter to play or Q to quit: 
 ```
 
 ## How It Works
