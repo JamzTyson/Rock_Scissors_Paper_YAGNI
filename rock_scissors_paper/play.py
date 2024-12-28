@@ -88,18 +88,22 @@ class UI:
 
     def display_result(self) -> None:
         """Print the winner."""
-        clear_screen()
         player_hand = self._game_state.player_hand
         computer_hand = self._game_state.computer_hand
-        print(f"{self._player_name} played {self._game_state.player_hand} | "
-              f"Computer played {self._game_state.computer_hand}")
 
-        if self._game_state.result is Result.DRAW:
-            print(f"You both chose {player_hand}. Draw")
-        elif self._game_state.result is Result.WIN:
-            print(f"{player_hand} beats {computer_hand}. You Win")
-        else:
-            print(f"{player_hand} is beaten by {computer_hand}. You Lose")
+        summary = (f"{self._player_name} played {self._game_state.player_hand} | "
+                   f"Computer played {self._game_state.computer_hand}")
+
+        result_message = {
+            Result.DRAW: f"You both chose {player_hand}. Draw",
+            Result.WIN: f"{player_hand} beats {computer_hand}. You Win",
+            Result.LOSE: f"{player_hand} is beaten by {computer_hand}. You Lose"
+        }
+
+        # Render output messages.
+        clear_screen()
+        print(summary)
+        print(result_message[self._game_state.result])
         self.print_scores()
         print()  # Empty line.
 
