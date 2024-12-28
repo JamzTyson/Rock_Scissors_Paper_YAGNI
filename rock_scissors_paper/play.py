@@ -185,7 +185,6 @@ def clear_screen() -> None:
         print('\n')
 
 
-
 def play(user_name: str) -> None:
     """Main game loop.
 
