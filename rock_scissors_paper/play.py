@@ -147,7 +147,7 @@ class UI:
 
 
 class Game:
-    """Manage the logic and game state of Rock Scissor Paper game.    """
+    """Manage the logic and game state of Rock Scissor Paper game."""
     def __init__(self, name: str, config: Config) -> None:
         self._config = config
         self._game_state = GameState(player_name=name)
